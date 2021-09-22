@@ -30,7 +30,7 @@ export default function Home() {
         (event) => {
           // @ts-ignore
           if (event.data == '_apple_ar_quicklook_button_tapped') {
-            setCart('1 Alarm Clock')
+            setCart('Nike Pegasus Trail')
           }
         },
         false
@@ -51,12 +51,12 @@ export default function Home() {
           id="ar-link"
           rel="ar"
           ref={linkRef}
-          href="/alarm-clock.usdz#callToAction=Add%20to%20cart&amp;checkoutTitle=Fresh%20Digs&amp;checkoutSubtitle=With%20built-in%20FM%20tuner&amp;price=$92.50"
+          href="/PegasusTrail.usdz#callToAction=Add%20to%20cart&amp;checkoutTitle=Nike%20Pegasus&amp;checkoutSubtitle=Better%20your%20run&amp;price=$92.50"
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             alt="Alarm Clock"
-            src="/alarm-clock.png"
+            src="/nike-pegasus.png"
             style={{ height: '100%', width: '100%' }}
           />
         </a>
