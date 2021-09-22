@@ -1,5 +1,6 @@
 import Head from 'next/head'
 import styled from 'styled-components'
+import { useEffect, useRef, useState } from 'react'
 
 const Main = styled.main`
   margin: 4rem;
@@ -19,104 +20,46 @@ const StyledLink = styled.a`
 
 const Text = styled.p`color: var(--primary)};`
 
-export const WORK = [
-  {
-    company: 'Apple',
-    start: 'August 2019',
-    end: 'Present',
-    website: 'https://www.apple.com',
-    summary: 'Senior Software Engineer'
-  },
-  {
-    company: 'Apple',
-    start: 'Nov 2018',
-    end: 'August 2019',
-    website: 'https://www.apple.com',
-    summary: 'Fullstack Web Developer'
-  },
-  {
-    company: 'BentoBox',
-    start: 'Mar 2017',
-    end: 'Nov 2018',
-    website: 'https://www.getbento.com',
-    summary: 'Fullstack Engineer'
-  },
-  {
-    company: 'NCSU - OSCAR Labs',
-    start: 'Aug 2014',
-    end: 'Dec 2016',
-    website: 'https://www.ncsu.edu',
-    summary: 'Software Developer'
-  },
-  {
-    company: 'BoostOurTeam',
-    start: 'Oct 2015',
-    end: 'Jan 2017',
-    website: '#',
-    summary: 'CTO'
-  },
-  {
-    company: 'Sears Holdings',
-    start: 'May 2016',
-    end: 'Jul 2016',
-    website: 'https://searsholdings.com',
-    summary: 'Software Development Intern'
-  },
-  {
-    company: 'Principal Financial Group',
-    start: 'May 2013',
-    end: 'Aug 2015',
-    website: 'https://www.principal.com/',
-    summary: 'RIS Java Development Intern'
-  }
-]
-
 export default function Home() {
+  const linkRef = useRef<HTMLAnchorElement>(null)
+  const [cart, setCart] = useState('')
+  useEffect(() => {
+    if (linkRef.current !== null) {
+      linkRef.current.addEventListener(
+        'message',
+        (event) => {
+          // @ts-ignore
+          if (event.data == '_apple_ar_quicklook_button_tapped') {
+            setCart('1 Alarm Clock')
+          }
+        },
+        false
+      )
+    }
+  }, [])
+
   return (
     <>
       <Head>
-        <title>Dylan Stein</title>
-        <meta name="description" content="Dylan Stein's Developer Page" />
+        <title>AR TEST</title>
+        <meta name="description" content="AR TEST" />
       </Head>
       <Main>
-        <Title>Dylan Stein</Title>
-        <SubTitle> Senior software engineer @ Apple, Inc.</SubTitle>
-        <StyledLink
-          href="https://github.com/djstein"
-          target="_blank"
-          rel="noopener noreferrer"
+        <Title>AR TEST</Title>
+        {cart && <SubTitle>Cart: {cart}</SubTitle>}
+        <a
+          id="ar-link"
+          rel="ar"
+          ref={linkRef}
+          href="/alarm-clock.usdz#callToAction=Add%20to%20cart&amp;checkoutTitle=Fresh%20Digs&amp;checkoutSubtitle=With%20built-in%20FM%20tuner&amp;price=$92.50"
         >
-          GitHub
-        </StyledLink>
-        <br />
-        <br />
-        <StyledLink
-          href="https://www.linkedin.com/in/dylanstein/"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          LinkedIn
-        </StyledLink>
-        <br />
-        <br />
-        {Object.entries(WORK).map(
-          ([key, { website, company, summary, start, end }]) => (
-            <div key={key}>
-              <StyledLink
-                href={website}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <Text>{company}</Text>
-                <Text>{summary}</Text>
-                <Text>
-                  {start} - {end}
-                </Text>
-              </StyledLink>
-              <br />
-            </div>
-          )
-        )}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            alt="Alarm Clock"
+            src="/alarm-clock.png"
+            style={{ height: '100%', width: '100%' }}
+          />
+        </a>
       </Main>
     </>
   )
